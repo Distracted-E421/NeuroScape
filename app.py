@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
@@ -19,7 +19,7 @@ class Task(db.Model):
     description = db.Column(db.String(1000))
     image = db.Column(db.String(100))
     parent_id = db.Column(db.Integer, ForeignKey('task.id'))
-    subtasks = relationship('Task', backref='parent')
+    subtasks = relationship('Task', back_populates='parent', remote_side='id')
 
     def __init__(self, title, priority=5, priority_title="", priority_color="", tags="", description="", image="", parent_id=None):
         self.title = title
@@ -55,7 +55,7 @@ def create_task():
         db.session.add(task)
         db.session.commit()
 
-        return redirect('/')
+        return redirect(url_for('index'))
 
     return render_template('create_task.html')
 
@@ -75,7 +75,7 @@ def update_task(task_id):
 
         db.session.commit()
 
-        return redirect('/')
+        return redirect(url_for('index'))
 
     return render_template('update_task.html', task=task)
 
@@ -86,10 +86,4 @@ def delete_task(task_id):
     db.session.delete(task)
     db.session.commit()
 
-    return redirect('/')
-
-@app.route('/tasks/<string:tag>')
-def tasks_by_tag(tag):
-    task_list = Task.query.filter_by(tags=tag).all()
-
-    return render_template('index.html', task_list=task_list)
+    return redirect(url_for('index'))
