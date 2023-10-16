@@ -160,4 +160,4 @@ NueroTaskFlask/
 	package-lock.json
 	package.json
 	README.md
-	Tailwins.config.js
+	Tailwind.config.js

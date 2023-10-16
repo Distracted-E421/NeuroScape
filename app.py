@@ -1,16 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
 
-
-
+# Initialize Flask app
 app = Flask(__name__, template_folder='front')
+
+# Configure SQLAlchemy settings
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Initialize SQLAlchemy with app config
 db = SQLAlchemy(app)
 
+
+# Define Task model
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -28,6 +30,7 @@ class Task(db.Model):
 
     image = db.Column(db.String(100))
 
+    # Initialize new Task instance
     def __init__(self, title, priority=5, priority_title="", priority_color="", tags="", description="", image=""):
         self.title = title
         self.priority = priority
@@ -40,11 +43,14 @@ class Task(db.Model):
     def __repr__(self):
         return "<Task: {}>".format(self.title)
 
-
+# Route for the index page
 @app.route('/')
 def index():
+    # Query all tasks from the database
     task_list = Task.query.all()
+    # Render index.html and pass the task list
     return render_template('index.html', task_list=task_list)
+
 
 @app.route('/create-task', methods=['GET', 'POST'])
 def create_task():
@@ -92,3 +98,10 @@ def delete_task(task_id):
     db.session.commit()
 
     return redirect(url_for('index'))
+
+# Main entry point
+if __name__ == '__main__':
+    # Initialize the database (uncomment this line when running for the first time)
+    # db.create_all()
+    # Run the Flask app
+    app.run(debug=True)

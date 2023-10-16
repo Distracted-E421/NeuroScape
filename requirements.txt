@@ -1,0 +1,10 @@
+# requirements.txt
+
+# Flask web framework
+Flask==2.1.0
+
+# SQLAlchemy for database
+SQLAlchemy==1.4.25
+
+# Other dependencies
+# ...
