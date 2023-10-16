@@ -3,23 +3,36 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
+
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
     title = db.Column(db.String(100))
+
     complete = db.Column(db.Boolean, default=False)
+
     priority = db.Column(db.Integer, default=5)
     priority_title = db.Column(db.String(100))
     priority_color = db.Column(db.String(100))
+
     tags = db.Column(db.String(100))
+
     description = db.Column(db.String(1000))
+
     image = db.Column(db.String(100))
+
     parent_id = db.Column(db.Integer, ForeignKey('task.id'))
-    subtasks = relationship('Task', back_populates='parent', remote_side='id')
+    parent = relationship('Task', remote_side=[id], back_populates='subtasks')
+
+    subtasks = relationship('Task', back_populates='parent')
+
 
     def __init__(self, title, priority=5, priority_title="", priority_color="", tags="", description="", image="", parent_id=None):
         self.title = title
@@ -33,6 +46,12 @@ class Task(db.Model):
 
     def __repr__(self):
         return "<Task: {}>".format(self.title)
+
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 
 @app.route('/')
 def index():
