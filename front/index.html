@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Todo App</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/tailwindcss/latest/tailwind.min.css">
+    <title>Task List</title>
 </head>
 <body>
-  <nav class="bg-white p-4">
-    <a href="/landing.html">Landing Page</a>
-  </nav>
+    <h1>Task List</h1>
 
-  </body>
+    <ul>
+        {% for task in task_list %}
+            <li>{{ task.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
 </html>

@@ -1,0 +1,12 @@
+CREATE TABLE task (
+  id INTEGER PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  complete BOOLEAN NOT NULL DEFAULT FALSE,
+  priority INTEGER NOT NULL DEFAULT 5,
+  priority_title VARCHAR(100) NOT NULL,
+  priority_color VARCHAR(100) NOT NULL,
+  tags VARCHAR(100) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
+  image VARCHAR(100) NOT NULL
+);
+

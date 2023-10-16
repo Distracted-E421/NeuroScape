@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='front')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -28,13 +28,7 @@ class Task(db.Model):
 
     image = db.Column(db.String(100))
 
-    parent_id = db.Column(db.Integer, ForeignKey('task.id'))
-    parent = relationship('Task', remote_side=[id], back_populates='subtasks')
-
-    subtasks = relationship('Task', back_populates='parent')
-
-
-    def __init__(self, title, priority=5, priority_title="", priority_color="", tags="", description="", image="", parent_id=None):
+    def __init__(self, title, priority=5, priority_title="", priority_color="", tags="", description="", image=""):
         self.title = title
         self.priority = priority
         self.priority_title = priority_title
@@ -42,15 +36,9 @@ class Task(db.Model):
         self.tags = tags
         self.description = description
         self.image = image
-        self.parent_id = parent_id
 
     def __repr__(self):
         return "<Task: {}>".format(self.title)
-
-
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 
 @app.route('/')
@@ -68,9 +56,8 @@ def create_task():
         tags = request.form['tags']
         description = request.form['description']
         image = request.form['image']
-        parent_id = request.form['parent_id']
 
-        task = Task(title=title, priority=priority, priority_title=priority_title, priority_color=priority_color, tags=tags, description=description, image=image, parent_id=parent_id)
+        task = Task(title=title, priority=priority, priority_title=priority_title, priority_color=priority_color, tags=tags, description=description, image=image)
         db.session.add(task)
         db.session.commit()
 
@@ -90,7 +77,6 @@ def update_task(task_id):
         task.tags = request.form['tags']
         task.description = request.form['description']
         task.image = request.form['image']
-        task.parent_id = request.form['parent_id']
 
         db.session.commit()
 
