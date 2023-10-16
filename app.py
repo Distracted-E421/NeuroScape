@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 app = Flask(__name__)
