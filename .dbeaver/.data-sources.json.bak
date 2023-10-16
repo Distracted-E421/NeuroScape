@@ -6,12 +6,21 @@
 			"driver": "sqlite_jdbc",
 			"name": "db.sqlite",
 			"save-password": true,
+			"navigator-show-only-entities": true,
+			"navigator-hide-folders": true,
 			"configuration": {
 				"database": "C:\\Users\\distr\\OneDrive\\Documents\\GitHub\\NueroTaskFlask\\instance\\db.sqlite",
 				"url": "jdbc:sqlite:C:\\Users\\distr\\OneDrive\\Documents\\GitHub\\NueroTaskFlask\\instance\\db.sqlite",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"auth-model": "native"
+			},
+			"custom-properties": {
+				"SQLEditor.autoSaveOnClose": "true",
+				"database.editor.connect.on.execute": "true",
+				"resultset.confirm.beforeSave": "false",
+				"resultset.datetime.editor": "false",
+				"transaction.smart.commit": "true"
 			}
 		}
 	},

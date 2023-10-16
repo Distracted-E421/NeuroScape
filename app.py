@@ -102,6 +102,6 @@ def delete_task(task_id):
 # Main entry point
 if __name__ == '__main__':
     # Initialize the database (uncomment this line when running for the first time)
-    # db.create_all()
+    db.create_all()
     # Run the Flask app
     app.run(debug=True)
