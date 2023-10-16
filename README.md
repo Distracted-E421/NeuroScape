@@ -1,2 +1,5 @@
 # NueroTaskFlask
- 
+
+To start nueroflask, from the project directory run "python3 -m venv venv" followed by ". venv/bin/activate"
+
+while the actual front end barely exists in actual code and pixels currently, i am working through some unforseen issues getting tailwind css to run properly the way I want it to. I am trying to keep all the front end super modular, and rely on things such as svg files and simple and clever animation to make it come to life. The basics of the sqlite db are there, with a preliminary table and columns, and i am trying to use the dbeaver gui to help understand the sql interface a bit better (i am not used to sql, all my previous was with object or vector ironicly). The base app is on its way, but because i transfer from my laptop to desktop every other day or so, the venv has been a bit of a continuous sore spot for bugs and issues. Over the week, the issues on the backend will be first to get fixed so i can rapidly add the remaining features i want to get in and then tackle a simple front end (the white has started to hurt my eyes lol).
