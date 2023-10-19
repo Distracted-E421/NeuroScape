@@ -3,10 +3,10 @@ from sqlalchemy import Integer, String
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-# Initialize SQLAlchemy object without passing the app
+# Initialize object without passing the app
 db = SQLAlchemy()
 
-# Your Flask app configuration here
+# Flask app configuration here
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -122,9 +122,7 @@ def delete_task(task_id):
 
     return redirect(url_for('index'))
 
-# Main entry point
 if __name__ == '__main__':
-    # Initialize the database
-    db.create_all()
-    # Run the Flask app
+    with app.app_context():
+        db.create_all()  # Initialize the database
     app.run(debug=True)
