@@ -10,7 +10,7 @@ init_db(app)
 
 @app.route('/')
 def index():
-    return render_template('pages/landing.html')
+    return render_template('templates/landing.html')
 
 
 @app.route('/create-task', methods=['GET', 'POST'])
@@ -30,7 +30,8 @@ def create_task():
 
         return redirect(url_for('index'))
 
-    return render_template('create_task.html')
+    return render_template('templates/create_task.html')
+
 
 @app.route('/update-task/<int:task_id>', methods=['GET', 'POST'])
 def update_task(task_id):
