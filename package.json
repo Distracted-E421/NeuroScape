@@ -1,5 +1,28 @@
 {
-    "devDependencies": {
+    "scripts": {
+        "build": "tailwindcss build front/src/tailwind.css -o static/css/tailwind.css"
+    },
+    "name": "nuerotaskflask",
+    "version": "1.0.0",
+    "description": "To start nueroflask, from the project directory run \"python3 -m venv venv\" followed by \". venv/bin/activate\"",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Distracted-E421/NueroTaskFlask.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Distracted-E421/NueroTaskFlask/issues"
+    },
+    "homepage": "https://github.com/Distracted-E421/NueroTaskFlask#readme",
+    "dependencies": {
+        "autoprefixer": "^10.4.16",
+        "postcss": "^8.4.31",
         "tailwindcss": "^3.3.3"
     }
 }

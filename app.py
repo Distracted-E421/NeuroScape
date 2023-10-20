@@ -10,8 +10,8 @@ init_db(app)
 
 @app.route('/')
 def index():
-    task_list = Task.query.all()
-    return render_template('index.html', task_list=task_list)
+    return render_template('pages/landing.html')
+
 
 @app.route('/create-task', methods=['GET', 'POST'])
 def create_task():
