@@ -16,6 +16,7 @@ class Task(db.Model):
     tags = db.Column(db.String(100))
     description = db.Column(db.String(1000))
     image = db.Column(db.String(100))
+    google_token = db.Column(db.String(1000))
 
 def init_db(app):
     db.init_app(app)

@@ -30,17 +30,17 @@
     "homepage": "https://github.com/Distracted-E421/NueroTaskFlask#readme",
     "dependencies": {
         "autoprefixer": "^10.4.16",
-        "postcss": "^8.4.31",
-        "tailwindcss": "^3.3.3"
+        "postcss": "^8.4.31"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.0",
         "browser-sync": "^2.27.7",
         "cpx": "^1.5.0",
+        "nodemon": "^2.0.14",
         "npm-run-all": "^4.1.5",
         "pug": "^3.0.2",
         "pug-cli": "^1.0.0-alpha6",
-        "nodemon": "^2.0.14",
-        "rimraf": "^3.0.2"
+        "rimraf": "^3.0.2",
+        "tailwindcss": "^3.3.3"
     }
 }
