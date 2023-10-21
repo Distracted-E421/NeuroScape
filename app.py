@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from db import db, Task, init_db
 
-app = Flask(__name__, template_folder='front')
+app = Flask(__name__,)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -10,7 +10,7 @@ init_db(app)
 
 @app.route('/')
 def index():
-    return render_template('templates/landing.html')
+    return render_template('src/html/index.html')
 
 
 @app.route('/create-task', methods=['GET', 'POST'])
