@@ -3,8 +3,10 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 from google.auth.transport.requests import Request
 from flask import current_app, redirect, url_for, session
+from app import db, User
 import json
 import os
+
 
 # Define the scopes
 SCOPES = ['https://www.googleapis.com/auth/calendar']
@@ -34,9 +36,7 @@ def get_user_token():
         # This function will be called during account creation and login.
         # It will redirect the user to a Google sign-in page (HTML template: google_signin.html)
         # and then handle the OAuth2 callback to get and store the user token.
-        from flask import redirect, url_for, session, request
-        from app import db, User
-        import json
+    pass
 def start_oauth_flow():
 # Start the OAuth2 flow
     authorization_url, state = flow.authorization_url(
@@ -82,6 +82,4 @@ def start_oauth_flow():
     return redirect(authorization_url)
 
 def add_event():
-        # TODO: Implement logic to add an event to the user's Google Calendar
-         # Code to add event goes here
             pass

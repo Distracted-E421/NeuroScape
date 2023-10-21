@@ -1,6 +1,4 @@
-
 # requirements.txt
-
 Flask==3.0.0
 Werkzeug==3.0.0
 fastapi==0.104.0
@@ -13,3 +11,4 @@ watchdog==3.0.0
 greenlet==3.0.0
 flask-sqlalchemy-api==0.9.3
 fastapi-oauth2==1.0.0b3
+flask-migrate==4.0.5

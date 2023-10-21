@@ -7,6 +7,12 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class Task(db.Model):
+    class User(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        email = db.Column(db.String(100), unique=True)
+        google_token = db.Column(db.String(1000))
+        # TODO: Add Google API related fields here
+        tasks = db.relationship('Task', backref='owner', lazy=True)
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     complete = db.Column(db.Boolean, default=False)
