@@ -2,25 +2,19 @@
 from flask import Flask, render_template, request, redirect, url_for
 from db import db, Task, init_db
 from google_api import init_google_client, get_user_token, add_event
-
-app = Flask(__name__,)
 from authlib.integrations.flask_client import OAuth
 
-# Initialize OAuth
-oauth = OAuth(app)
-google = oauth.remote_app(
-    'google',
-    client_id='YOUR_GOOGLE_CLIENT_ID',
-    client_secret='YOUR_GOOGLE_CLIENT_SECRET',
-    request_token_params={
-        'scope': 'email',
-    },
-    base_url='https://www.googleapis.com/oauth2/v1/',
-    request_token_url=None,
-    access_token_method='POST',
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-)
+app = Flask(__name__,)
+
+# Initialize Google OAuth
+from google.oauth2 import WebApplicationClient
+import requests
+
+# OAuth 2 client setup
+CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID'
+GOOGLE_DISCOVERY_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+client = WebApplicationClient(CLIENT_ID)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -31,7 +25,20 @@ init_db(app)
 def index():
     return render_template('index.html')
 
-# Add more routes here as needed
+@app.route('/google-login')
+def google_login():
+    # Find out what URL to hit for Google login
+    google_provider_cfg = requests.get(GOOGLE_DISCOVERY_URL).json()
+    authorization_endpoint = google_provider_cfg['authorization_endpoint']
+
+    # Use library to construct the request for Google login
+    request_uri = client.prepare_request_uri(
+        authorization_endpoint,
+        redirect_uri=request.base_url + '/callback',
+        scope=['openid', 'email', 'profile'],
+    )
+    return redirect(request_uri)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
