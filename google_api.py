@@ -1,19 +1,35 @@
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
+import json
+import os
 
-# Initialize API client
+# Define the scopes
+SCOPES = ['https://www.googleapis.com/auth/calendar']
+
+# Initialize the Google API client
+flow = InstalledAppFlow.from_client_secrets_file(
+    'client_secret.json', SCOPES)
+
 def init_google_client():
-    creds = None
-    # Load JSON config
-    return build('calendar', 'v3', credentials=creds)
+    if not os.path.exists('token.json'):
+        flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(json.dumps(flow.credentials.to_json()))
+    else:
+        with open('token.json', 'r') as token:
+            creds_data = json.loads(token.read())
+        flow.credentials = google.oauth2.credentials.Credentials.from_authorized_user_info(creds_data)
 
-# Handle OAuth 2.0 flow
+    return flow
+
+
 def get_user_token():
-    # OAuth 2.0 logic here
-    return token
+    # Code to get user token goes here
+    pass
 
-# Function to add event to Google Calendar
-def add_event(service, event_data):
-    # code to add event to Google Calendar
+def add_event():
+    # Code to add event goes here
+    pass
