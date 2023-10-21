@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from db import db, Task, init_db
+from google_api import init_google_client, get_user_token, add_event
 
 app = Flask(__name__,)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
@@ -8,7 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize db
 init_db(app)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('src/html/index.html')
 
